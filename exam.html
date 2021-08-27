@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        span{
+            border: 1px solid blue;
+            color: white;
+            height: 20px;
+            width: 30%;
+            padding: 5px;
+            margin: 3px;
+            display: inline-block;
+            text-align: center;
+            background-color:black;
+        }
+        div{
+            width: 300px;
+            height: 300px;
+            border-radius: 15px;
+            margin: 20px auto;
+            padding: 20px;
+            color: white;
+        }
+        .active{
+            background-color: rgb(26, 27, 24);
+        }
+        .true{ 
+            background-color: rgb(212, 10, 162);
+        }
+        input[type='button']{
+            background-color:rgb(74, 161, 187);
+            border-radius: 8px;
+            margin-left: 40%;
+            color: white;
+            width: 20%;
+            opacity: .8;
+        }
+        input[type='button']:hover{
+            opacity: 1;
+        }
+        p{
+            font: bold 20px tahoma;
+            text-align: center;
+            color: yellow;
+        }
+    </style>
+    <script>
+        window.addEventListener('load',function(){
+            targetspan=document.getElementById('user');
+            targettitle=document.getElementById('title');
+            targettimer=document.getElementById('timer');
+            targetdiv=document.getElementById('parent');
+            targetbtn=document.getElementById('btn');
+            targetact=document.getElementsByClassName('active')[0];
+            targetact=document.getElementsByClassName('true')[0];
+            targetspan.innerHTML=('Welcome :' + sessionStorage.getItem('username'))
+            targettitle.innerHTML=('javascript');
+            seconds=1800,
+            secondpass,
+            countdown=setInterval(function(){
+                secondpass();
+            },1000)
+            var quone;
+            var result=0;
+
+            //questions for exam
+            Questions={
+                quone:[
+                    {
+                    header:"<h1>what is 2*5=</h1>",
+                    answer:"<input type='radio' name='ans' value='10' id='true'>10<br><input type='radio' name='ans'id='falus' value='13'>13<br><input type='radio' name='ans' id='falus' value='20'>20<br><input type='radio' name='ans'id='falus' value='12'>12",
+                    correct:10,
+                    Degree:20
+                },{
+                    header:"<h1>what is 3*5=</h1>",
+                    answer:["<input type='radio' name='ans' value='10'>10<br><input type='radio' name='ans' value='15' id='true'>15<br><input type='radio' name='ans' value='20'>20<br><input type='radio' name='ans' value='12'>12"],
+                    correct:15,
+                    Degree:20
+                },{
+                    header:"<h1>what is 4*5=</h1>",
+                    answer:["<input type='radio' name='ans' value='10'>10<br><input type='radio' name='ans' value='13'>13<br><input type='radio' name='ans' value='20'id='true'>20<br><input type='radio' name='ans' value='12'>12"],
+                    correct:20,
+                    Degree:20
+                   },{
+                    header:"<h1>what is 5*5=</h1>",
+                    answer:["<input type='radio' name='ans' value='10'>10<br><input type='radio' name='ans' value='13'>13<br><input type='radio' name='ans' value='25' id='true'>25<br><input type='radio' name='ans' value='12'>12"],
+                    correct:25,
+                    Degree:20
+                },{
+                    header:"<h1>what is 6*5=</h1>",
+                    answer:["<input type='radio' name='ans' value='10'>10<br><input type='radio' name='ans' value='13'>13<br><input type='radio' name='ans' value='30' id='true'>30<br><input type='radio' name='ans' value='12'>12"],
+                    correct:30,
+                    Degree:20
+                },{
+                    header:"<h1>what is 7*5=</h1>",
+                    answer:["<input type='radio' name='ans' value='10'>10<br><input type='radio' name='ans' value='35' id='true'>35<br><input type='radio' name='ans' value='20'>20<br><input type='radio' name='ans' value='12'>12"],
+                    correct:35,
+                    Degree:20
+                },{
+                    header:"<h1>what is 8*5=</h1>",
+                    answer:["<input type='radio' name='ans' value='40' id=true>40<br><input type='radio' name='ans' value='13'>13<br><input type='radio' name='ans' value='20'>20<br><input type='radio' name='ans' value='12'>12"],
+                    correct:40,
+                    Degree:20
+                },{
+                    header:"<h1>what is 9*5=</h1>",
+                    answer:["<input type='radio' name='ans' value='10'>10<br><input type='radio' name='ans' value='13'>13<br><input type='radio' name='ans' value='20'>20<br><input type='radio' name='ans' value='45'id='true'>45"],
+                    correct:45,
+                    Degree:20
+                },{
+                    header:"<h1>what is 10*5=</h1>",
+                    answer:["<input type='radio' name='ans' value='50' id='true'><lable>50</lable><br><input type='radio' name='ans' value='13'>13<br><input type='radio' name='ans' value='20'>20<br><input type='radio' name='ans' value='12'>12"],
+                    correct:50,
+                    Degree:20
+                },{
+                    header:"<h1>what is 1*5=</h1>",
+                    answer:["<input type='radio' name='ans' value='10'>10<br><input type='radio' name='ans' value='13'>13<br><input type='radio' name='ans' value='20'>20<br><input type='radio' name='ans' value='5' id=true>5"],
+                    correct:5,
+                    Degree:20
+                }
+            ]
+        }
+                
+        //events happen when click the button
+            i=0;
+            ouranswer = document.getElementsByName('ans');
+            targetbtn.addEventListener('click',function(){
+            i++;
+                for (var a = 0; a < ouranswer.length; a++) {
+                    if (ouranswer[a].checked) {
+                        success = ouranswer[a].value;
+                        console.log(success)
+                        if (success == Questions.quone[i-2].correct) {
+                            result += 20;
+                            console.log(result);
+                        }
+                    }   
+                }
+            targetbtn.value='next'
+            if(i<=10)
+                targetdiv.innerHTML=Questions.quone[i-1].header+Questions.quone[i-1].answer
+            else{
+                targetbtn.style.display='none';
+                clearInterval(countdown);
+                targetdiv.innerHTML='your result = '+result
+                }
+            })
+
+            //to change color div
+            if(sessionStorage.getItem('value')==0){
+                targetdiv.classList.remove('active')
+                targetdiv.classList.add('true')
+            }else{
+                targetdiv.classList.remove('true')
+                targetdiv.classList.add('active')
+            }
+
+            //but timer for exam
+            function secondpass(){
+                munite =  Math.floor(seconds/60),
+                remsecond= seconds % 60;
+                targettimer.innerHTML=munite + ':' +remsecond;
+                if(seconds>0){
+                    seconds -=1
+                }else{
+                    clearInterval(countdown);
+                    targettimer.innerHTML=('done..');
+                    targetdiv.innerHTML=('times up..<br> your result ='+result);
+                    targetbtn.style.display='none';
+                }
+                
+            }
+            })//end of load       
+    </script>
+</head>
+<body>
+    <form action="#"method="GET"></form>
+    <span id="user"></span>
+    <span id="title"></span>
+    <span id="timer"></span>
+    <div id="parent" >
+        <p>are you ready to start exam</p>
+    </div>
+    <input type="button" value="start" id="btn" >
+
+</body>
+</html>

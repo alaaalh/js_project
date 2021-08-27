@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        table{
+            border: 1px solid blue;
+            margin: 10px auto;
+            text-align: center;
+            padding: 20px;
+        }
+        span{
+            display: none;
+            font: bold 10px tahoma;
+            color:red;
+        }
+        .erorr{
+            border: 3px solid red;
+        }
+        .success{
+            border: 2px solid green;
+        }
+        #main{
+            padding: 20px;
+            color:blue
+        }
+        input[type='submit'],input[type='reset']{
+            background-color: blue;
+            color:white
+        }
+    </style>
+    <script>
+        window.addEventListener('load',function(){
+            username=document.getElementById('UserText');
+            userpass=document.getElementById('UserPass');
+            errorusermessage = document.getElementById('erorrusermassage');
+            errorpassmessage = document.getElementById('erorrpassmassage');
+            erorrconfirmmassage=document.getElementById('erorrconfirmmassage');
+            checkpass=document.getElementById('checkpass');
+           
+            //event happen when user want live input username  
+            username.addEventListener('blur',function(){
+                if(!usernamevalidate()){
+                    username.focus();
+                    username.select();
+                    errorusermessage.style.display='block';
+                    username.className='erorr'
+                }else{
+                    errorusermessage.style.display='none';
+                    username.className='success'
+                    sessionStorage.setItem('username',username.value)
+                }
+            })
+            //event happen when user want live input password
+            userpass.addEventListener('blur',function(){
+                if(!userpassvalidate()){
+                    userpass.focus();
+                    userpass.select();
+                    errorpassmessage.style.display='block';
+                    userpass.className='erorr'
+                }else{
+                    errorpassmessage.style.display='none';
+                    userpass.className='success'
+                    sessionStorage.setItem('userpass',userpass.value)
+                }
+            })
+            //event happen when user want live input confirm
+            checkpass.addEventListener('blur',function(){
+                if(!checkpassvalidate()){
+                    checkpass.focus();
+                    checkpass.select();
+                    erorrconfirmmassage.style.display='block';
+                    checkpass.className='erorr'
+                }else{
+                    erorrconfirmmassage.style.display='none';
+                    checkpass.className='success'
+                }
+            })
+            checkbox=document.getElementsByName('one');
+            i=0;
+            //events happen when click submit button
+            this.document.forms[0].addEventListener('submit', function(e){
+                if(!(usernamevalidate() && userpassvalidate() && checkpassvalidate())){
+                    e.preventDefault();
+                }
+                if(!(usernamevalidate())){
+                    errorusermessage.style.display='block'; 
+                }
+                if(!(userpassvalidate())){
+                    errorpassmessage.style.display='block'; 
+                }
+                if(!(checkpassvalidate())){
+                    erorrconfirmmassage.style.display='block'; 
+                }
+                if(document.getElementById('male').checked){
+                    sessionStorage.setItem('value',i)
+                }
+            })  
+            //events happen when click cancel button
+            this.document.forms[0].addEventListener('reset', function(e){
+                if(!(confirm('are you sure'))){
+                    e.preventDefault();
+                }
+            });
+             
+                 
+            })//end of load
+
+            function usernamevalidate(){
+                var userbattern=/^[a-zA-Z]{6,8}$/;
+                if(username.value.match(userbattern)){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+
+            function userpassvalidate(){
+                var passbattern=/^[0-9]{6,8}$/;
+                if(userpass.value.match(passbattern)){
+                return true;
+                }else{
+                    return false;
+                }
+            }
+            function checkpassvalidate(){
+                if(userpass.value==checkpass.value){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+
+        </script>
+</head>
+<body>
+    <form action="login.html" method="GET">
+        <table>
+            <tr>
+                <td colspan="4" id="main">registration padge</td>
+            </tr>
+            <tr>
+                <td colspan="2">UserName</td>
+                <td ><input name="userName" id="UserText" type="text"></td>
+            </tr>
+            <tr>
+                <td colspan="3"><span id="erorrusermassage">UserName must be between 6 to 8 letter</span></td>
+            </tr>
+            <tr>
+                <td colspan="2">Userpass</td>
+                <td><input name="password" type="password" id="UserPass"></td>
+            </tr>
+            <tr>
+                <td colspan="4"><span id="erorrpassmassage">Userpass must be between 6 to 8 letter</span></td>
+            </tr>
+            <tr>
+                <td colspan="2">password conformation</td>
+                <td ><input name="check" id="checkpass" type="text"></td>
+            </tr>
+            <tr>
+                <td colspan="4"><span id="erorrconfirmmassage">you password is not correct</span></td>
+            </tr>
+            <tr>
+                <td colspan="2">email</td>
+                <td ><input name="email" id="emailText" type="email"></td>
+            </tr>
+            <tr>
+                <td><span id="erorremailmassage">please follow rule</span></td>
+            </tr>
+            <tr>
+                <td colspan="2">gender</td>
+                <td><input type="radio" value="male" name="one" id="male">male  <input type="radio" value="female" name="one" id="female">female</td>  
+            </tr>
+          
+            <tr>
+                <td colspan="2"><input type="submit" id="submit" value="ok"></td>
+                <td><input type="reset" value="cancel" id="reset"></td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>

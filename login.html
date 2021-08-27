@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        table{
+            border: 1px solid blue;
+            margin: 10px auto;
+            text-align: center;
+            padding: 20px;
+        }
+        span{
+            display: none;
+            color: red;
+            font: bold 10px tahoma ;
+        }
+    </style>
+    <script>
+        window.addEventListener('load',function(){
+            usernamelogin=document.getElementById('textName');
+            userpasslogin=document.getElementById('textpass');
+            erorruser=document.getElementById('erorruser')
+            erorrpass=document.getElementById('erorrpass')
+            //events happen when user want leave input username
+            usernamelogin.addEventListener('blur',function(){
+                if(!(usernamelogin.value==sessionStorage.getItem('username'))){
+                    usernamelogin.focus();
+                    usernamelogin.select();
+                    erorruser.style.display='block';
+                }else{
+                    erorruser.style.display='none';
+                }
+            })
+            //events happen when user went leave input userpass
+            userpasslogin.addEventListener('blur',function(){
+                if(!(userpasslogin.value==sessionStorage.getItem('userpass'))){
+                    userpasslogin.focus();
+                    userpasslogin.select();
+                    erorrpass.style.display='block'; 
+                }else{ 
+                    erorrpass.style.display='none';
+                }
+            })
+            //events happen when user click submit button
+            this.document.forms[0].addEventListener('submit',function(e){
+                if(!(usernamelogin.value==sessionStorage.getItem('username') && userpasslogin.value==sessionStorage.getItem('userpass'))){
+                    e.preventDefault();
+                }
+            })
+            //events happen when user click cancel button
+            this.document.forms[0].addEventListener('reset',function(e){
+                if(!confirm('Are You Sure')){
+                    e.preventDefault();
+                }
+            })
+        })//end of load
+    </script>
+</head>
+<body>
+        <form action="exam.html" method="GET">
+            <table>
+                <tr>
+                    <td colspan="4">login page</td>
+                </tr>
+                <tr>
+                    <td colspan="2">UserName</td>
+                    <td>
+                        <input type="text" id="textName">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <span id=erorruser>your userName is not correct</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">Userpassword</td>
+                    <td>
+                        <input type="password" id="textpass">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <span id="erorrpass">your password is not correct</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2"><input type="submit" id="submitdata" value="ok"></td>
+                    <td><input type="reset" id="restdata" value="cancel"></td>
+                </tr>
+            </table>
+        </form> 
+</body>
+</html>
